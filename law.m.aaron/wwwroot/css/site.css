@@ -80,3 +80,13 @@ body {
 .about-heading h2, .about-heading a {
     display: inline-block;
 }
+
+/* Game Page */
+.game-content {
+    justify-content: center;
+    display: grid;
+}
+
+#game-container {
+    margin-bottom: 1em;
+}

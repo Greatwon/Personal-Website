@@ -1,0 +1,23 @@
+﻿@page
+@model law.m.aaron.Pages.GameModel
+@{
+}
+
+<div class="container game-content">
+    <canvas id="game-container">
+    </canvas>
+    <div class="nes-container is-dark with-title">
+        <p class="title">Controls</p>
+        <p>A and Left Arrow - Move Left</p>
+        <p>D and Right Arrow - Move Right</p>
+    </div>
+</div>
+
+<script src="~/js/game/utils/align.js"></script>
+<script src="~/js/game/utils/alignGrid.js"></script>
+<script src="~/js/game/utils/UIBlock.js"></script>
+<script src="~/js/game/GameOverScene.js"></script>
+<script src="~/js/game/GameScene.js"></script>
+<script src="~/js/game/TitleScene.js"></script>
+<script src="~/js/game/PreloadScene.js"></script>
+<script src="~/js/game/game.js"></script>
