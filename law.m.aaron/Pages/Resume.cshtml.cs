@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace law.m.aaron.Pages
 {
-    public class AboutModel : PageModel
+    public class ResumeModel : PageModel
     {
         public void OnGet()
         {
