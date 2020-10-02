@@ -1,70 +1,169 @@
 ﻿a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    overflow-x: hidden;
+    padding-top: 55px;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+.w-sidebar {
+    width: 200px;
+    max-width: 200px;
+    top: 0;
+    z-index: 1060;
+}
+
+.row.collapse {
+    margin-left: -200px;
+    left: 0;
+    transition: margin-left .15s linear;
+}
+
+    .row.collapse.show {
+        margin-left: 0 !important;
+    }
+
+.row.collapsing {
+    margin-left: -200px;
+    left: -0.05%;
+    transition: all .15s linear;
+}
+
+.side-nav-btn {
+    font-size: 2rem !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.side-nav-btn-open {
+    font-size: 2rem !important;
+}
+
+.side-nav-header {
+    text-align: end;
+    display: none;
+}
+
+a, a:active, a:focus,
+button, button:focus, button:active,
+.btn, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn.active.focus {
+    outline: none;
+    outline: 0;
+}
+
+input::-moz-focus-inner {
+    border: 0;
+}
+
+@media (max-width:768px) {
+
+    .row.collapse,
+    .row.collapsing {
+        margin-left: 0 !important;
+        left: 0 !important;
+        overflow: visible;
+    }
+
+    .row > .sidebar.collapse {
+        display: flex !important;
+        margin-left: -100% !important;
+        transition: all .3s linear;
+        position: fixed;
+        z-index: 1050;
+        max-width: 0;
+        min-width: 0;
+        flex-basis: auto;
+    }
+
+        .row > .sidebar.collapse.show {
+            margin-left: 0 !important;
+            width: 100%;
+            max-width: 100%;
+            min-width: initial;
+        }
+
+    .row > .sidebar.collapsing {
+        display: flex !important;
+        margin-left: -10% !important;
+        transition: all .3s linear !important;
+        position: fixed;
+        z-index: 1050;
+        min-width: initial;
+    }
+
+    .side-nav-header {
+        text-align: end;
+        display: block;
+    }
+}
+
+.nav-bottom {
+    bottom: 0;
+    position: fixed;
+    width: 200px;
+    max-width: 200px;
+}
+
+.nav-bottom p {
+    padding-right: 10px;
 }
 
 /* Index */
@@ -88,6 +187,39 @@ body {
     vertical-align: unset;
 }
 
+/* Games Page */
+@media screen and (min-width: 0px) and (max-width: 720px) {
+    .mobile-error {
+        visibility: visible;
+        display: block;
+    }
+
+    .game-anchor {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+    }
+}
+
+@media screen and (min-width: 721px) {
+    .mobile-error {
+        visibility: hidden;
+    }
+}
+
+.game-image {
+    border: black;
+    border-style: double;
+}
+
+.game-anchor {
+    text-decoration: none;
+    color: black;
+}
+
+.game-title {
+    margin-top: .5em;
+}
 
 /* Game Page */
 .game-content {

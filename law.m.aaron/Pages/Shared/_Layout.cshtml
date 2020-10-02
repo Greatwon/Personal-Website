@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css?version=20201003" asp-append-version="true" />
 
     <!-- JS -->
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
@@ -21,46 +21,68 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+    <div class="container-fluid fixed-top py-3">
+        <div class="row collapse show no-gutters d-flex h-100 position-relative">
+            <div class="col-3 px-0 w-sidebar navbar-collapse collapse d-none d-md-flex">
+                <!-- spacer col -->
+            </div>
+            <div class="col px-3 px-md-0">
+                <!-- toggler -->
+                <button class="side-nav-btn-open navbar-toggler" type="button" data-toggle="collapse" data-target=".collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="fi-xnsuxl-three-bars-solid"></i>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav ml-auto">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid px-0">
+        <div class="row collapse show no-gutters d-flex h-100 position-relative">
+            <div class="col-3 p-0 h-100 w-sidebar navbar-collapse collapse d-none d-md-flex sidebar">
+                <!-- fixed sidebar -->
+                <div class="navbar-dark bg-dark text-white position-fixed h-100 align-self-start w-sidebar">
+                    <h6 class="side-nav-header px-3 pt-3">
+                        <button class="side-nav-btn navbar-toggler" type="button" data-toggle="collapse" data-target=".collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fi-xnsuxl-three-bars-solid"></i>
+                        </button>
+                    </h6>
+                    <ul class="nav flex-column flex-nowrap text-truncate">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Index">
+                                <i class="fi-xnsuxl-house-solid"></i>
+                                Home
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Game">Game</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Games">
+                                <i class="fi-xnsuxl-gamepad-solid"></i>
+                                Games
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Resume">Resume</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Resume">
+                                <i class="fi-xwldxl-file-wide"></i>
+                                Resume
+                            </a>
                         </li>
                     </ul>
+                    <div class="text-light nav-bottom small text-right">
+                        <p>&copy; 2020</p>
+                        <p>Aaron Law</p>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted bg-dark">
-        <div class="container text-light text-right">
-            &copy; 2020 - Aaron Law
-        </div>
-    </footer>
-
+    @RenderSection("Scripts", required: false)
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-
-    @RenderSection("Scripts", required: false)
+    <script src="~/js/friconix/friconix.js"  asp-append-version="true"></script>
 </body>
 </html>
