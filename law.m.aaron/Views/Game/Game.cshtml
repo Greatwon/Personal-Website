@@ -1,0 +1,51 @@
+﻿@model IEnumerable<law.m.aaron.Models.HighScore>
+
+<div class="container game-content" id="game-content">
+    <div id="game-container">
+    </div>
+    <section class="showcase">
+        <div class="nes-container is-dark with-title" style="max-width: 800px">
+            <p class="title">Controls</p>
+            <p>A and Left Arrow - Move Left</p>
+            <p>D and Right Arrow - Move Right</p>
+            <p>Spacebar in either direction will give you a short dash with a cooldown of 1 second.</p>
+        </div>
+    </section>
+    <br />&nbsp;
+    <section class="showcase">
+        <div class="nes-container is-dark with-title" style="max-width: 800px">
+            <p class="title">High Scores</p>
+            <table class="nes-table is-dark" style="width: 100%;">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Score)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Score)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </section>
+</div>
+
+<script src="~/js/game/utils/align.js"></script>
+<script src="~/js/game/utils/alignGrid.js"></script>
+<script src="~/js/game/utils/UIBlock.js"></script>
+<script src="~/js/game/GameOverScene.js"></script>
+<script src="~/js/game/GameScene.js"></script>
+<script src="~/js/game/TitleScene.js"></script>
+<script src="~/js/game/PreloadScene.js"></script>
+<script src="~/js/game/game.js"></script>

@@ -85,4 +85,14 @@ class AlignGrid
 		            }
 		        }
 	}
+	getIndexPos(index) {
+		var yy = Math.floor(index / this.cols);
+		var xx = index - (yy * this.cols);
+		var x2 = this.cw * xx + this.cw / 2;
+		var y2 = this.ch * yy + this.ch / 2;
+		var obj = {};
+		obj.x = x2;
+		obj.y = y2;
+		return obj;
+	}
 }
