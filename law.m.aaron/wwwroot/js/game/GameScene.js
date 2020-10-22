@@ -38,7 +38,6 @@
         this.aGrid = new AlignGrid({ scene: this, rows: 25, cols: 21 });
         // this.aGrid.showNumbers();
         
-        
         //  The platform
         this.platforms = this.physics.add.staticGroup();
 
@@ -85,7 +84,6 @@
         
 
         //  Collide the player and the platforms
-        
         this.player.body.setSize(this.player.width / 2.5, 0, true);
         this.physics.add.collider(this.player, this.platforms);
 
