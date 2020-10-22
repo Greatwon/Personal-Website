@@ -2,7 +2,6 @@
 
     constructor() {
         super({ key: "gameScene" });
-
         this.player;
         this.platforms;
         this.cursors;
@@ -32,13 +31,14 @@
         // center game on screen
         game.pageAlignHorizontally = true;
         game.pageAlignVertically = true;
-
+        
         this.add.image(400, 300, 'background');
 
         // for debugging
         this.aGrid = new AlignGrid({ scene: this, rows: 25, cols: 21 });
         // this.aGrid.showNumbers();
-
+        
+        
         //  The platform
         this.platforms = this.physics.add.staticGroup();
 
@@ -82,7 +82,11 @@
 
         this.aGrid.placeAtIndex(17, this.scoreText);
 
+        
+
         //  Collide the player and the platforms
+        
+        this.player.body.setSize(this.player.width / 2.5, 0, true);
         this.physics.add.collider(this.player, this.platforms);
 
         // up the gravity of the boxes every half second
@@ -92,6 +96,7 @@
             callbackScope: this,
             loop: false
         });
+        
     }
 
     update() {
@@ -146,6 +151,8 @@
         if (this.boxes.countActive(true) === 0) {
             this.setUpBoxes();
         }
+
+
     }
 
     /**
@@ -211,7 +218,9 @@
      * */
     delayDone() {
         // make the hitbox of the player closely match to the sprite
-        this.player.body.setSize(this.player.height, this.player.width, true);
+        //this.player.body.setSize(this.player.height, this.player.width, true);
+        //this.player.body.setSize(this.player.width / 3, 0, true);
+ 
     }
 
     /**
