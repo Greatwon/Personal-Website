@@ -4,6 +4,7 @@ using law.m.aaron.Models;
 using law.m.aaron.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Collections.Generic;
 
 namespace law.m.aaron.Controllers
 {
@@ -26,7 +27,7 @@ namespace law.m.aaron.Controllers
         public async Task<IActionResult> MrCatBadNight()
         {
             return View("~/Views/Game/Game.cshtml", await _cosmosDbService.GetScoresAsync("SELECT * FROM HighScores h ORDER BY h.score DESC OFFSET 0 LIMIT 100"));
-            //return View("~/Views/Game/Game.cshtml");
+            // return View("~/Views/Game/Game.cshtml", new List<HighScore>());
         }
 
         [HttpPost]

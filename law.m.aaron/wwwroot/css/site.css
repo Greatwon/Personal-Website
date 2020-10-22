@@ -95,6 +95,8 @@ body {
 
 .side-nav-btn-open {
     font-size: 2rem !important;
+    border: 1px solid black;
+    background-color: white;
 }
 
 .side-nav-header {
