@@ -1,5 +1,6 @@
 ﻿var config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
+    parent: 'game-container',
     width: 800,
     height: 600,
     physics: {
@@ -9,8 +10,17 @@
             debug: false
         }
     },
+    dom: {
+        createContainer: true
+    },
     scene: [PreloadScene, TitleScene, GameScene, GameOverScene],
-    canvas: document.getElementById('game-container')
 };
 
 var game = new Phaser.Game(config);
+
+// Prevent spacebar from selecting buttons while playing games.
+document.querySelectorAll("button").forEach(function (item) {
+    item.addEventListener('focus', function () {
+        this.blur();
+    })
+});

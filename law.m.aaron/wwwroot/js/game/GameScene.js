@@ -11,10 +11,15 @@
         this.gameOver = false;
         this.scoreText;
         this.boxes;
+        this.isDash = false;
+        this.dashEvent;
+        this.dashTimerCount = 0;
+        this.isDashOver = true;
 
         // Movement Keys
         this.keyA;
         this.keyD;
+        this.spaceBar;
 
         this.sceneAdded = false;
     }
@@ -24,7 +29,6 @@
     }
 
     create() {
-
         // center game on screen
         game.pageAlignHorizontally = true;
         game.pageAlignVertically = true;
@@ -35,7 +39,7 @@
         this.aGrid = new AlignGrid({ scene: this, rows: 25, cols: 21 });
         // this.aGrid.showNumbers();
 
-        //  The platforms group to jump on
+        //  The platform
         this.platforms = this.physics.add.staticGroup();
 
         //   create the ground.
@@ -46,7 +50,12 @@
         this.player = this.physics.add.sprite(100, 450, 'player');
 
         // fix the hitbox of the player 
-        this.time.addEvent({ delay: 1000, callback: this.delayDone, callbackScope: this, loop: false });
+        this.time.addEvent({
+            delay: 1000,
+            callback: function () { this.delayDone },
+            callbackScope: this,
+            loop: false
+        });
 
         //  Player physics properties. Give the little guy a slight bounce.
         this.player.setBounce(0.2);
@@ -56,8 +65,9 @@
         this.cursors = this.input.keyboard.createCursorKeys();
 
         // Assign Movement Keys
-        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D, false);
+        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A, false);
+        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE, false);
 
         // reset vars
         this.resetVars();
@@ -74,26 +84,58 @@
 
         //  Collide the player and the platforms
         this.physics.add.collider(this.player, this.platforms);
+
+        // up the gravity of the boxes every half second
+        this.time.addEvent({
+            delay: 500,
+            callback: function () { game.scene.keys.gameScene.physics.world.gravity.y += 1; },
+            callbackScope: this,
+            loop: false
+        });
     }
 
     update() {
 
         var playerVelocityLeft = -200;
         var playerVelocityRight = 200;
+        var playerVelocityDashMultiplier = 3;
 
         if (this.gameOver) {
             return;
         }
 
         if (this.cursors.left.isDown || this.keyA.isDown) {
-            this.player.setVelocityX(playerVelocityLeft);
 
-            this.player.anims.play('left', true);
+            if (this.spaceBar.isDown && !this.isDash) {
+                this.dashEvent = this.time.addEvent({
+                    delay: 16,
+                    callback: function () { this.playerDash('left', playerVelocityLeft, playerVelocityDashMultiplier) },
+                    callbackScope: game.scene.keys.gameScene,
+                    repeat: 20
+                });
+                this.isDash = true;
+                this.isDashOver = false;
+            } else if (this.isDashOver) {
+                this.player.setVelocityX(playerVelocityLeft);
+                this.player.anims.play('left', true);
+            }
         }
         else if (this.cursors.right.isDown || this.keyD.isDown) {
-            this.player.setVelocityX(playerVelocityRight);
 
-            this.player.anims.play('right', true);
+            if (this.spaceBar.isDown && !this.isDash) {
+                this.dashEvent = this.time.addEvent({
+                    delay: 16,
+                    callback: function () { this.playerDash('right', playerVelocityRight, playerVelocityDashMultiplier) },
+                    callbackScope: game.scene.keys.gameScene,
+                    repeat: 20
+                });
+                this.isDash = true;
+                this.isDashOver = false;
+                
+            } else if(this.isDashOver) {
+                this.player.setVelocityX(playerVelocityRight);
+                this.player.anims.play('right', true);
+            }
         }
         else {
             this.player.setVelocityX(0);
@@ -110,9 +152,8 @@
      *  When a box hits the platform destory it
      *
      * @param {any} box
-     * @param {any} platform
      */
-    boxesHitPlatforms(box, platform) {
+    boxesHitPlatforms(box) {
         box.destroy();
 
         // Add and update the score
@@ -122,12 +163,12 @@
 
     /**
      * When a box hits a player its gameover
-     * 
-     * @param {any} player
-     * @param {any} box
      */
-    hitBoxes(player, box) {
+    hitBoxes() {
         game.scene.keys.gameScene.physics.pause();
+        game.scene.keys.gameScene.scene.pause();
+
+        game.scene.keys.gameScene.input.keyboard.removeKey(Phaser.Input.Keyboard.KeyCodes.A, true);
 
         this.player.setTint(0xff0000);
 
@@ -183,8 +224,45 @@
         this.keyA.isDown = false;
         this.cursors.right.isDown = false;
         this.keyD.isDown = false;
+        this.spaceBar.isDown = false;
         this.player.anims.play('turn');
         this.player.setVelocityX(0);
         this.score = 0;
+        this.isDash = false;
+        this.dashTimerCount = 0;
+        this.isDashOver = true;
+    }
+
+    /**
+     * 
+     *  Let the player move faster for a short duration after pressing space. Add a delay of 1 second so the user 
+     *  cannot spam the dash.
+     * 
+     * @param {any} direction What direction the sprite should be facing
+     * @param {any} directionSpeed The speed in which the sprite should be moving
+     * @param {any} multiplier How fast the dash is.
+     */
+    playerDash(direction, directionSpeed, multiplier) {
+        this.player.setVelocityX((directionSpeed * multiplier));
+        this.dashTimerCount++;
+        this.player.anims.play(direction, true);
+
+        //console.log(this.dashTimerCount);
+
+        if (this.dashTimerCount === 20) {
+            this.dashEvent.remove(false);
+            
+            this.player.setVelocityX(0);
+            this.player.anims.play('turn');
+            this.dashTimerCount = 0;
+            this.isDashOver = true;
+
+            this.time.addEvent({
+                delay: 1000,
+                callback: function () { this.isDash = false; },
+                callbackScope: this,
+                loop: false
+            });
+        }
     }
 }

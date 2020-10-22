@@ -24,7 +24,7 @@
 
         // add play again button and add a listener
         var playAgainBtn = this.add.image(0, 0, 'playAgain');
-        agrid.placeAtIndex(93, playAgainBtn);
+        agrid.placeAtIndex(71, playAgainBtn);
 
         playAgainBtn.setInteractive();
 
@@ -43,11 +43,50 @@
             },
             active: function () {
                 var scoreText = add.text(0, 0, 'Score: ' + score, { fontFamily: 'customFont', fontSize: 60, color: '#FFFFFF', align: 'center' }).setShadow(2, 2, "#333333", 2, false, true);
-;
                 agrid.placeAtIndex(115, scoreText);
                 Align.centerW(scoreText);
             }
         });
 
+        var element = this.add.dom(400, 400).createFromCache('nameform');
+
+        element.addListener('click');
+
+        element.on('click', function (event) {
+
+            var inputText = this.getChildByName('nameField');
+            var button = this.getChildByName('submitButton');
+
+            if (event.target.name === 'submitButton') {
+                var inputText = this.getChildByName('nameField');
+
+                //  Have they entered anything?
+                if (inputText.value !== '') {
+                    //  Turn off the click events
+                    this.removeListener('click');
+
+                    $.ajax({
+                        url: '/create/score',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            name: inputText.value,
+                            score: score
+                        }
+                        }).done(function (mydata) {
+                            button.className = "nes-btn is-success is-disabled";
+                            button.value = "Success!";
+                        }).fail(function (data) {
+                            button.className = "nes-btn is-error";
+                            element.addListener('click');
+                            inputText.value = "Please Try Again.";
+                        });
+
+                } else {
+                    button.className = "nes-btn is-error";
+                    element.addListener('click');
+                }
+            }
+        });
     }
 }

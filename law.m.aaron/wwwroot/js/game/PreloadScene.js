@@ -34,6 +34,8 @@
         this.load.image('gameover', '../images/Game Over.png');
         this.load.image('playAgain', '../images/Play Again.png');
 
+        this.load.html('nameform', '../html/nameform.html');
+
         this.load.on('progress', this.updateBar, { newGraphics: this.newGraphics, loadingText: loadingText });
         this.load.on('complete', this.complete, { scene: this.scene });
     }
