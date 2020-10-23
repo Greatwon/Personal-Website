@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AspNetCore.SEOHelper;
 using law.m.aaron.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,8 @@ namespace law.m.aaron
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseXMLSitemap(env.ContentRootPath);
 
             app.UseRouting();
 

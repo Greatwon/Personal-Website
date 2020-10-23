@@ -61,7 +61,7 @@
                 var inputText = this.getChildByName('nameField');
 
                 //  Have they entered anything?
-                if (inputText.value !== '') {
+                if (inputText.value !== '' || inputText.value !== 'Please Try Again.') {
                     //  Turn off the click events
                     this.removeListener('click');
 
