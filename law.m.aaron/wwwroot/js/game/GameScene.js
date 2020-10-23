@@ -2,7 +2,6 @@
 
     constructor() {
         super({ key: "gameScene" });
-
         this.player;
         this.platforms;
         this.cursors;
@@ -32,13 +31,13 @@
         // center game on screen
         game.pageAlignHorizontally = true;
         game.pageAlignVertically = true;
-
+        
         this.add.image(400, 300, 'background');
 
         // for debugging
         this.aGrid = new AlignGrid({ scene: this, rows: 25, cols: 21 });
         // this.aGrid.showNumbers();
-
+        
         //  The platform
         this.platforms = this.physics.add.staticGroup();
 
@@ -48,14 +47,6 @@
 
         // The player
         this.player = this.physics.add.sprite(100, 450, 'player');
-
-        // fix the hitbox of the player 
-        this.time.addEvent({
-            delay: 1000,
-            callback: function () { this.delayDone },
-            callbackScope: this,
-            loop: false
-        });
 
         //  Player physics properties. Give the little guy a slight bounce.
         this.player.setBounce(0.2);
@@ -82,6 +73,8 @@
 
         this.aGrid.placeAtIndex(17, this.scoreText);
 
+        // fix the hitbox of the player 
+        this.player.body.setSize(this.player.width / 2.5, 0, true);
         //  Collide the player and the platforms
         this.physics.add.collider(this.player, this.platforms);
 
@@ -92,6 +85,7 @@
             callbackScope: this,
             loop: false
         });
+        
     }
 
     update() {
@@ -146,6 +140,8 @@
         if (this.boxes.countActive(true) === 0) {
             this.setUpBoxes();
         }
+
+
     }
 
     /**
@@ -206,13 +202,6 @@
         context.physics.add.overlap(this.player, this.boxes, this.hitBoxes, null, context);
     }
 
-    /**
-     * Runs after a set delay
-     * */
-    delayDone() {
-        // make the hitbox of the player closely match to the sprite
-        this.player.body.setSize(this.player.height, this.player.width, true);
-    }
 
     /**
      * Reset the vars on game start.
