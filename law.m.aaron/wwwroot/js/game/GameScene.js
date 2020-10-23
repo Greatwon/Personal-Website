@@ -48,14 +48,6 @@
         // The player
         this.player = this.physics.add.sprite(100, 450, 'player');
 
-        // fix the hitbox of the player 
-        this.time.addEvent({
-            delay: 1000,
-            callback: function () { this.delayDone },
-            callbackScope: this,
-            loop: false
-        });
-
         //  Player physics properties. Give the little guy a slight bounce.
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
@@ -81,10 +73,9 @@
 
         this.aGrid.placeAtIndex(17, this.scoreText);
 
-        
-
-        //  Collide the player and the platforms
+        // fix the hitbox of the player 
         this.player.body.setSize(this.player.width / 2.5, 0, true);
+        //  Collide the player and the platforms
         this.physics.add.collider(this.player, this.platforms);
 
         // up the gravity of the boxes every half second
@@ -211,15 +202,6 @@
         context.physics.add.overlap(this.player, this.boxes, this.hitBoxes, null, context);
     }
 
-    /**
-     * Runs after a set delay
-     * */
-    delayDone() {
-        // make the hitbox of the player closely match to the sprite
-        //this.player.body.setSize(this.player.height, this.player.width, true);
-        //this.player.body.setSize(this.player.width / 3, 0, true);
- 
-    }
 
     /**
      * Reset the vars on game start.
