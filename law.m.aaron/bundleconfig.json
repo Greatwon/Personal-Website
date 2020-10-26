@@ -1,0 +1,32 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/game.min.js",
+    "inputFiles": [
+      "wwwroot/js/game/utils/align.js",
+      "wwwroot/js/game/utils/alignGrid.js",
+      "wwwroot/js/game/utils/form.js",
+      "wwwroot/js/game/utils/UIBlock.js",
+      "wwwroot/js/game/GameOverScene.js",
+      "wwwroot/js/game/GameScene.js",
+      "wwwroot/js/game/PreloadScene.js",
+      "wwwroot/js/game/TitleScene.js",
+      "wwwroot/js/game/game.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]
