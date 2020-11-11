@@ -29,6 +29,12 @@ namespace law.m.aaron.Controllers
             // return View("~/Views/Game/Game.cshtml", new List<HighScore>());
         }
 
+        [ActionName("InfiniteRunner")]
+        public async Task<IActionResult> InfiniteRunner()
+        {
+            return View("~/Views/InfiniteRunner/InfiniteRunner.cshtml");
+        }
+
         [HttpPost]
         [Route("create/score")]
         public async Task<JsonResult> CreateAsync(String name, int score)
