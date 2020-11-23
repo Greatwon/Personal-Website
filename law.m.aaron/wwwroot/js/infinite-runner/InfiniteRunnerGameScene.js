@@ -86,7 +86,15 @@
 
         // adding the player;
         this.player = this.physics.add.sprite(this.gameOptions.playerStartPosition, game.config.height * 0.7, "player");
+
+        // add small rect under player
+        this.rect = new Phaser.Geom.Rectangle(0, 0, this.player.body.width, 3);
+        this.rectPhys = this.physics.add.sprite(this.gameOptions.playerStartPosition, game.config.height * 0.7, this.rect);
+        this.rectPhys.visible = false;
+
         this.player.setGravityY(this.gameOptions.playerGravity);
+        this.rectPhys.setGravityY(this.gameOptions.playerGravity);
+
         this.player.setDepth(2);
 
         // the player is not dying
@@ -95,9 +103,21 @@
         // setting collisions between the player and the platform group
         this.platformCollider = this.physics.add.collider(this.player, this.platformGroup, function () {
 
+            if (this.dying) {
+                this.player.setTint(0xff0000);
+            }
+
             // play "run" animation if the player is on a platform
             if (!this.player.anims.isPlaying) {
                 this.player.anims.play("run");
+            }
+        }, null, this);
+
+        this.platformCollider = this.physics.add.collider(this.rectPhys, this.platformGroup, function () {
+
+            if (this.rectPhys.body.touching.down) {
+                this.playerJumps = 0;
+                this.player.setGravityY(0);
             }
         }, null, this);
 
@@ -141,7 +161,16 @@
             this.gameOver();            
         }
 
+        if (this.dying) {
+            this.player.setTint(0xff0000);
+        }
+
+        if (!this.rectPhys.body.touching.down) {
+            this.player.setGravityY(this.gameOptions.playerGravity);
+        }
+
         this.player.x = this.gameOptions.playerStartPosition;
+        this.rectPhys.x = this.gameOptions.playerStartPosition;
 
         // recycling platforms
         var minDistance = game.config.width;
@@ -443,6 +472,8 @@
      * */
     jump() {
 
+        this.player.setGravityY(this.gameOptions.playerGravity);
+
         // dont jump when player is click the sound icon
         var h = this.soundControl.getSoundInteractiveArea().height / 2;
         var w = this.soundControl.getSoundInteractiveArea().width / 2;
@@ -458,6 +489,7 @@
         if ((!this.dying) && this.playerJumps < this.gameOptions.jumps) {
             
             this.player.setVelocityY(this.gameOptions.jumpForce * -1);
+            this.rectPhys.setVelocityY(this.gameOptions.jumpForce * -1);
             this.playerJumps++;
 
             // stops animation
@@ -475,6 +507,8 @@
         this.player.setTint(0xff0000);
         this.player.body.setVelocityY(-200);
         this.physics.world.removeCollider(this.platformCollider);
+        this.player.setGravityY(this.gameOptions.playerGravity);
+        this.player.setTint(0xff0000);
     }
 
     gameOver() {
