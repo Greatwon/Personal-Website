@@ -5,10 +5,11 @@ namespace law.m.aaron.Models
 {
     public class HighScore
     {
-        public HighScore(string name, int score)
+        public HighScore(string name, int score, string game)
         {
             Name = name;
             Score = score;
+            Game = game;
         }
 
         [JsonProperty(PropertyName = "id")]
@@ -19,5 +20,8 @@ namespace law.m.aaron.Models
 
         [JsonProperty(PropertyName = "score")]
         public int Score { get; set; }
+
+        [JsonProperty(PropertyName = "game")]
+        public string Game { get; set; }
     }
 }

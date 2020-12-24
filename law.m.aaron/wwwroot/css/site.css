@@ -189,26 +189,6 @@ input::-moz-focus-inner {
     vertical-align: unset;
 }
 
-/* Games Page */
-@media screen and (min-width: 0px) and (max-width: 720px) {
-    .mobile-error {
-        visibility: visible;
-        display: block;
-    }
-
-    .game-anchor {
-        pointer-events: none;
-        cursor: default;
-        opacity: 0.5;
-    }
-}
-
-@media screen and (min-width: 721px) {
-    .mobile-error {
-        visibility: hidden;
-    }
-}
-
 .game-image {
     border: black;
     border-style: double;
@@ -231,4 +211,9 @@ input::-moz-focus-inner {
 
 #game-container {
     margin-bottom: 1em;
+}
+
+.auto-margin {
+    margin-left: auto;
+    margin-right: auto;
 }
