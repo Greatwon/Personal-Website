@@ -23,6 +23,11 @@ namespace law.m.aaron.Services
             await this._container.CreateItemAsync<HighScore>(item, new PartitionKey(item.Id));
         }
 
+        public async Task AddInfiniteRunnerScoreAsync(HighScore item)
+        {
+            await this._container.CreateItemAsync<HighScore>(item, new PartitionKey(item.Id));
+        }
+
         public async Task DeleteScoreAsync(string id)
         {
             await this._container.DeleteItemAsync<HighScore>(id, new PartitionKey(id));

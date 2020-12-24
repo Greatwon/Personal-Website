@@ -1,16 +1,16 @@
-﻿@*@model IEnumerable<law.m.aaron.Models.HighScore>*@
+﻿@model IEnumerable<law.m.aaron.Models.HighScore>
 
 <div class="container game-content" id="game-content">
     <div id="game-container">
     </div>
-    <section class="showcase">
+    <section class="showcase auto-margin">
         <div class="nes-container is-dark with-title" style="max-width: 800px">
             <p class="title">Controls</p>
             <p>Press or Click to Jump.</p>
         </div>
     </section>
     <br />&nbsp;
-    @*<section class="showcase">
+    <section class="showcase auto-margin">
             <div class="nes-container is-dark with-title" style="max-width: 800px">
                 <p class="title">High Scores</p>
                 <table class="nes-table is-dark" style="width: 100%;">
@@ -36,7 +36,7 @@
                     }
                 </table>
             </div>
-        </section>*@
+        </section>
 </div>
 
 <environment include="Development">
@@ -52,13 +52,5 @@
 </environment>
 
 <environment exclude="Development">
-    <script src="~/js/game/utils/align.js"></script>
-    <script src="~/js/game/utils/alignGrid.js"></script>
-    <script src="~/js/game/utils/UIBlock.js"></script>
-    <script src="~/js/infinite-runner/InfiniteRunnerPreloadScene.js"></script>
-    <script src="~/js/infinite-runner/InfiniteRunnerTitleScene.js"></script>
-    <script src="~/js/infinite-runner/InfiniteRunnerGameScene.js"></script>
-    <script src="~/js/infinite-runner/InfiniteRunnerGameOverScene.js"></script>
-    <script src="~/js/infinite-runner/SoundControl.js"></script>
-    <script src="~/js/infinite-runner/InfiniteRunnerConfig.js"></script>
+    <script src="~/js/game.min.js"></script>
 </environment>

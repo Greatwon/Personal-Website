@@ -15,7 +15,11 @@
         Align.scaleToGameH(bg, 1);
         Align.center(bg);
 
+        var title = this.add.image(0, 0, 'title');
+
         var agrid = new AlignGrid({ scene: this, rows: 13, cols: 11 });
+
+        agrid.placeAtIndex(49, title);
 
         // add press to start image on screen
         this.pressStart = this.add.image(0, 0, 'start');

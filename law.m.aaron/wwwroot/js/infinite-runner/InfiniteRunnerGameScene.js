@@ -61,10 +61,12 @@
         this.boulderPool;
         this.bushGroup;
         this.bushPool;
+        this.score = 0;
+        this.scoreText;
     }
 
     preload() {
-       
+
     }
 
     create() {
@@ -102,18 +104,13 @@
 
         // setting collisions between the player and the platform group
         this.platformCollider = this.physics.add.collider(this.player, this.platformGroup, function () {
-
-            if (this.dying) {
-                this.player.setTint(0xff0000);
-            }
-
             // play "run" animation if the player is on a platform
             if (!this.player.anims.isPlaying) {
                 this.player.anims.play("run");
             }
         }, null, this);
 
-        this.platformCollider = this.physics.add.collider(this.rectPhys, this.platformGroup, function () {
+        this.platformRectCollider = this.physics.add.collider(this.rectPhys, this.platformGroup, function () {
 
             if (this.rectPhys.body.touching.down) {
                 this.playerJumps = 0;
@@ -122,22 +119,7 @@
         }, null, this);
 
         // setting collisions between the player and the coin group
-        this.physics.add.overlap(this.player, this.coinGroup, function (player, coin) {
-
-            this.tweens.add({
-                targets: coin,
-                y: coin.y - 100,
-                alpha: 0,
-                duration: 800,
-                ease: "Cubic.easeOut",
-                callbackScope: this,
-                onComplete: function () {
-                    this.coinGroup.killAndHide(coin);
-                    this.coinGroup.remove(coin);
-                }
-            });
-
-        }, null, this);
+        this.physics.add.overlap(this.player, this.coinGroup, this.collectCoin, null, this);
 
         // set collisions
         this.physics.add.overlap(this.player, this.fireGroup, this.playerHit, null, this);
@@ -152,17 +134,16 @@
         // check for input
         this.input.on("pointerdown", this.jump, this);
 
+        this.scoreText = this.add.text(0, 0, '0', { fontSize: '44px', fill: '#FFFFFF' });
+        agrid.placeAtIndex(0, this.scoreText);
+
     }
 
     update() {
 
         // game over
         if (this.player.y > game.config.height) {
-            this.gameOver();            
-        }
-
-        if (this.dying) {
-            this.player.setTint(0xff0000);
+            this.gameOver();
         }
 
         if (!this.rectPhys.body.touching.down) {
@@ -258,6 +239,9 @@
             var nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
             this.addPlatform(nextPlatformWidth, game.config.width + nextPlatformWidth / 2, nextPlatformHeight);
         }
+
+        this.score += 1;
+        this.scoreText.setText(this.score);
     }
 
     /**
@@ -341,7 +325,7 @@
         });
     }
 
-    
+
     /**
      * Add Mountins to the background and make it look like the are scrolling by
      * */
@@ -438,7 +422,7 @@
         if (this.addedPlatforms > 1) {
 
             // Add Coin
-            this.addCoinToPlatform.call(this, posX, posY, platform, platformWidth);
+            this.addCoinToPlatform.call(this, posX, posY, platform);
 
             // Add obsticle to platform
             var obsticle = Phaser.Math.Between(1, 3);
@@ -458,11 +442,11 @@
                     break;
                 default:
                     this.addFireToPlatform.call(this, posX, posY, platform, platformWidth);
-            } 
+            }
 
 
             // Try and add a wasp separately.
-            this.addWasp.call(this, posX, posY, platform, platformWidth);            
+            this.addWasp.call(this, posX, posY, platform, platformWidth);
         }
     }
 
@@ -487,7 +471,7 @@
         }
 
         if ((!this.dying) && this.playerJumps < this.gameOptions.jumps) {
-            
+
             this.player.setVelocityY(this.gameOptions.jumpForce * -1);
             this.rectPhys.setVelocityY(this.gameOptions.jumpForce * -1);
             this.playerJumps++;
@@ -507,15 +491,24 @@
         this.player.setTint(0xff0000);
         this.player.body.setVelocityY(-200);
         this.physics.world.removeCollider(this.platformCollider);
+        this.physics.world.removeCollider(this.platformRectCollider);
         this.player.setGravityY(this.gameOptions.playerGravity);
-        this.player.setTint(0xff0000);
     }
 
+    /**
+     * Player is dead, go to the gameover scene
+     * */
     gameOver() {
         this.sound.stopAll();
         this.addedPlatforms = 0;
         this.playerJumps = 0;
-        this.scene.start("InfiniteRunnerGameOverScene");
+        this.scene.start("InfiniteRunnerGameOverScene", { score: this.score });
+        this.resetVars();
+    }
+
+    resetVars() {
+        this.score = 0;
+        this.scoreText.setText(0);
     }
 
     addFireToPlatform(posX, posY, platform, platformWidth) {
@@ -624,7 +617,7 @@
      * @param {any} posY
      * @param {any} platformWidth
      */
-    addCoinToPlatform(posX, posY, platform, platformWidth) {
+    addCoinToPlatform(posX, posY, platform) {
         if (Phaser.Math.Between(1, 100) <= this.gameOptions.coinPercent) {
             if (this.coinPool.getLength()) {
                 var coin = this.coinPool.getFirst();
@@ -644,5 +637,41 @@
                 this.coinGroup.add(coin);
             }
         }
+    }
+
+    /**
+     * Player has collided with a coin
+     */
+    collectCoin(player, coin) {
+
+        if (!this.coinCollected) {
+            this.coinCollected = true;
+            this.score += 100;
+
+            if (game.global.sound) {
+                this.sound.play('coin-collect', { loop: false, volume: 0.5 });
+            }
+        }
+
+        this.time.addEvent({
+            delay: 500,
+            callback: function () { this.coinCollected = false; },
+            callbackScope: this,
+            loop: false
+        });
+
+        this.tweens.add({
+            targets: coin,
+            y: coin.y - 100,
+            alpha: 0,
+            duration: 800,
+            ease: "Cubic.easeOut",
+            callbackScope: this,
+            onComplete: function () {
+                this.coinGroup.killAndHide(coin);
+                this.coinGroup.remove(coin);
+            }
+        });
+
     }
 }

@@ -9,6 +9,7 @@ namespace law.m.aaron.Services
         Task<IEnumerable<HighScore>> GetScoresAsync(string query);
         Task<HighScore> GetScoreAsync(string id);
         Task AddScoreAsync(HighScore item);
+        Task AddInfiniteRunnerScoreAsync(HighScore item);
         Task UpdateScoreAsync(string id, HighScore item);
         Task DeleteScoreAsync(string id);
 

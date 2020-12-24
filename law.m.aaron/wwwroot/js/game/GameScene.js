@@ -8,7 +8,6 @@
         this.score = 0;
         this.scoreText;
         this.gameOver = false;
-        this.scoreText;
         this.boxes;
         this.isDash = false;
         this.dashEvent;
@@ -83,7 +82,7 @@
             delay: 500,
             callback: function () { game.scene.keys.gameScene.physics.world.gravity.y += 1; },
             callbackScope: this,
-            loop: false
+            loop: true
         });
         
     }

@@ -34,6 +34,7 @@
         this.load.image('playAgain', '../images/Play Again.png');
         this.load.image('cloud_1', '../images/infinite-runner/Cloud1.png');
         this.load.image('cloud_2', '../images/infinite-runner/Cloud2.png');
+        this.load.image('title', '../images/infinite-runner/Infinite Runner Logo.png');
 
         // sprite sheets
         this.load.spritesheet('player', '../images/infinite-runner/player.png', { frameWidth: 32, frameHeight: 32 });
@@ -74,6 +75,7 @@
         this.load.audio("bg-song-1", "../music/Focus.ogg");
         this.load.audio("title-song", "../music/Arcade-Fantasy.mp3");
         this.load.audio("gameover-song", "../music/GameOver.mp3");
+        this.load.audio("coin-collect", "../music/Coin Collect.wav");
 
         this.load.on('progress', this.updateBar, { newGraphics: this.newGraphics, loadingText: loadingText });
 
