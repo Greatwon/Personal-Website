@@ -28,5 +28,25 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/game2.min.js",
+    "inputFiles": [
+      "wwwroot/js/game/utils/align.js",
+      "wwwroot/js/game/utils/alignGrid.js",
+      "wwwroot/js/game/utils/UIBlock.js",
+      "wwwroot/js/infinite-runner/InfiniteRunnerPreloadScene.js",
+      "wwwroot/js/infinite-runner/InfiniteRunnerTitleScene.js",
+      "wwwroot/js/infinite-runner/InfiniteRunnerGameScene.js",
+      "wwwroot/js/infinite-runner/InfiniteRunnerGameOverScene.js",
+      "wwwroot/js/infinite-runner/SoundControl.js",
+      "wwwroot/js/infinite-runner/InfiniteRunnerConfig.js"
+
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

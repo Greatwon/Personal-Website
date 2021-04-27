@@ -13,6 +13,7 @@
 
     <!-- JS -->
     <script src="//cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.js"></script>
+    <script defer src="https://friconix.com/cdn/friconix.js"></script>
 
     <style>
         html, body, pre, code, kbd, samp {
@@ -62,6 +63,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-light" asp-controller="QuickWorkout" asp-action="Index">
+                                <i class="fi-xnsuxl-beating-heart-solid"></i>
+                                Workout
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-light" asp-controller="Home" asp-action="Resume">
                                 <i class="fi-xwldxl-file-wide"></i>
                                 Resume
@@ -85,7 +92,6 @@
     @RenderSection("Scripts", required: false)
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/friconix/friconix.js" asp-append-version="true"></script>
 
     <environment include="Development">
         <script src="~/js/site.js" asp-append-version="true"></script>
