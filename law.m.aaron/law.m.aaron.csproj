@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\js\friconix\" />
+    <Folder Include="wwwroot\images\quick-workout\" />
+    <Folder Include="wwwroot\sound\" />
   </ItemGroup>
 
   <ItemGroup>

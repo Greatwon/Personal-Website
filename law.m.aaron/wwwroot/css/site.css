@@ -217,3 +217,23 @@ input::-moz-focus-inner {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Workout Page */
+.container-btn-title {
+    display: inline-block !important;
+    margin: 0;
+}
+
+#start-timer {
+    vertical-align: top;
+}
+
+.img-workout {
+    max-width: 400px;
+}
+
+@media (max-width:768px) {
+    .img-workout {
+        max-width: 200px;
+    }
+}

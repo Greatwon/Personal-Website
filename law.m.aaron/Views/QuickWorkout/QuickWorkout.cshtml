@@ -1,0 +1,38 @@
+﻿<div class="row">
+    <div class="nes-container is-dark with-title">
+        <h2 class="title topic">How This Works:</h2>
+        <p> On this page a random selection of exercises are chosen for you to do for 5 minutes. Each exercise will run for 1 minute in length with a notification sound and an image change to let you know to move onto the next exercise.</p>
+    </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col-sm-6">
+        <div class="nes-container with-title is-dark">
+            <div class="title">
+                <h1 class="container-btn-title" id="timer">05:00</h1>
+                <button type="button" class="nes-btn btn-lg" title="Start Timer" id="start-timer" onclick="timerBtnPressed()"> Start </button>
+            </div>
+
+            <div id="gif-player">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="nes-container is-dark with-title">
+            <div class="title">
+                <h6 class="container-btn-title">
+                    Your Exercises Are:
+                </h6>
+                <button type="button" class="nes-btn btn-sm" title="Repick" id="repick-button" onclick="repickExercises()"> Repick </button>
+            </div>            
+            <ul class="list-unstyled" id="exercise-list">
+                <!-- Generated Through Javascript on page load -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/QuickWorkout/QuickWorkout.js"></script>
